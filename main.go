@@ -48,7 +48,6 @@ func onInitialized(e g.InitArgs) {
 }
 
 func onConnected(e g.ConnectArgs) {
-	loggingActive = true
 	log.Printf("Game connected (%s)\n", e.Host)
 }
 
