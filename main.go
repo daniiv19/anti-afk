@@ -13,7 +13,7 @@ import (
 
 // Initialize the extension with metadata
 var ext = g.NewExt(g.ExtInfo{
-	Title:       "AFK Tracker",
+	Title:       "AFK",
 	Description: "Anti AFK. An extension that tracks how long you have been AFK.",
 	Author:      "danii / v19",
 	Version:     "0.5",
