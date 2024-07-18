@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"strconv"
 	"strings"
 	"sync"
@@ -14,7 +13,7 @@ import (
 
 // Initialize the extension with metadata
 var ext = g.NewExt(g.ExtInfo{
-	Title:       "AFK",
+	Title:       "AFK Tracker",
 	Description: "Anti AFK. An extension that tracks how long you have been AFK.",
 	Author:      "danii / v19",
 	Version:     "0.5",
@@ -25,7 +24,6 @@ var (
 	lastActionTime    time.Time
 	afkDuration       = 5 * time.Minute
 	setupMutex        sync.Mutex
-	loggingActive     bool
 	afkActive         bool
 	sendingAfkMessage bool // Flag to indicate if the script is sending an AFK message
 )
@@ -41,18 +39,14 @@ func main() {
 }
 
 func onInitialized(e g.InitArgs) {
-	loggingActive = true
 	lastActionTime = time.Now()
 	startAfkTimer()
-	log.Println("Extension initialized")
 }
 
 func onConnected(e g.ConnectArgs) {
-	log.Printf("Game connected (%s)\n", e.Host)
 }
 
 func onDisconnected() {
-	log.Println("Game disconnected")
 	if afkTimer != nil {
 		afkTimer.Stop()
 	}
@@ -90,8 +84,7 @@ func sendAfkMessages() {
 
 	elapsed := time.Since(lastActionTime)
 	message := formatAfkMessage(elapsed)
-	ext.Send(out.SHOUT, message)
-	log.Println(message)
+	ext.Send(in.CHAT, message)
 
 	time.Sleep(2 * time.Second) // Pause after sending the message
 	sendingAfkMessage = false
@@ -128,6 +121,5 @@ func ignoreAfkMessages(e *g.Intercept) {
 	msg := e.Packet.ReadString()
 	if strings.Contains(msg, "I'm AFK") || strings.Contains(msg, "I have been AFK for") {
 		e.Block()
-		log.Println("Blocked AFK message")
 	}
 }

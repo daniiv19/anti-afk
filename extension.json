@@ -1,16 +1,15 @@
 {
-  "title": "AFK Tracker",
-  "description": "An extension that tracks how long you have been AFK.",
+  "title": "AFK",
+  "description": "Anti AFK. An extension that tracks how long you have been AFK.",
   "authors": [
     {
       "name": "danii / v19",
-      "hotel": "Origins",
+      "hotel": ".com",
       "username": "v19",
-      "discord": "danii98",
-      "twitter": "/"
+      "discord": "danii98"
     }
   ],
-  "version": "1.1",
+  "version": "0.5",
   "categories": ["Others"],
   "source": "https://github.com/daniiv19/anti-afk",
   "readme": "https://github.com/daniiv19/anti-afk/README.md",
@@ -22,14 +21,14 @@
   },
   "language": "Go",
   "commands": {
-    "default": ["cmd", "/C", "anti-afk.exe", "-c", "{cookie}", "-p", "{port}", "-f", "{filename}"],
-    "windows": ["cmd", "/C", "anti-afk.exe", "-c", "{cookie}", "-p", "{port}", "-f", "{filename}"]
+    "default": ["cmd", "/C", "afk_tracker.exe", "-c", "{cookie}", "-p", "{port}", "-f", "{filename}"],
+    "windows": ["cmd", "/C", "afk_tracker.exe", "-c", "{cookie}", "-p", "{port}", "-f", "{filename}"]
   },
   "compatibility": {
     "systems": ["Windows"],
     "clients": ["Origins"]
   },
-  "submissionDate": "15-07-2024 00:48:56",
-  "updateDate": "17-07-2024 00:31:35",
+  "submissionDate": "18-07-2024 10:00:00",
+  "updateDate": "18-07-2024 10:00:00",
   "isOutdated": false
 }
