@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"strconv"
 	"strings"
 	"sync"
@@ -22,7 +23,7 @@ var ext = g.NewExt(g.ExtInfo{
 var (
 	afkTimer          *time.Timer
 	lastActionTime    time.Time
-	afkDuration       = 5 * time.Minute
+	afkDuration       = 5 * time.Minute // Set to 5 minutes
 	setupMutex        sync.Mutex
 	afkActive         bool
 	sendingAfkMessage bool // Flag to indicate if the script is sending an AFK message
@@ -41,12 +42,15 @@ func main() {
 func onInitialized(e g.InitArgs) {
 	lastActionTime = time.Now()
 	startAfkTimer()
+	log.Println("Extension initialized")
 }
 
 func onConnected(e g.ConnectArgs) {
+	log.Printf("Game connected (%s)\n", e.Host)
 }
 
 func onDisconnected() {
+	log.Println("Game disconnected")
 	if afkTimer != nil {
 		afkTimer.Stop()
 	}
@@ -84,7 +88,8 @@ func sendAfkMessages() {
 
 	elapsed := time.Since(lastActionTime)
 	message := formatAfkMessage(elapsed)
-	ext.Send(in.CHAT, message)
+
+	ext.Send(out.SHOUT, message)
 
 	time.Sleep(2 * time.Second) // Pause after sending the message
 	sendingAfkMessage = false
@@ -121,5 +126,6 @@ func ignoreAfkMessages(e *g.Intercept) {
 	msg := e.Packet.ReadString()
 	if strings.Contains(msg, "I'm AFK") || strings.Contains(msg, "I have been AFK for") {
 		e.Block()
+		log.Println("Blocked AFK message")
 	}
 }

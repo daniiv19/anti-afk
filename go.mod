@@ -3,6 +3,6 @@ module anti-afk
 go 1.22.5
 
 require (
-	golang.org/x/exp v0.0.0-20240707233637-46b078467d37 // indirect
+	golang.org/x/exp v0.0.0-20240716175740-e3f259677ff7 // indirect
 	xabbo.b7c.io/goearth v0.3.1 // indirect
 )
